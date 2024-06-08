@@ -10,7 +10,11 @@ from rest_framework.views import APIView
 
 from api.apps.apikey_auth.authentication import ApiKeyAuthentication
 from api.apps.vehicle.models import Vehicle
-from api.apps.vehicle.serializers import CreateVehicleSerializer, UpdateVehicleSerializer, UpdateVehicleStatusSerializer
+from api.apps.vehicle.serializers import (
+    CreateVehicleSerializer,
+    UpdateVehicleSerializer,
+    UpdateVehicleStatusSerializer,
+)
 from api.gateways import sales_service
 
 
@@ -19,18 +23,20 @@ class LoginView(APIView):
 
     def get(self, request, *args, **kwargs):
         csrf_token = get_token(request)
-        return Response({'csrfToken': csrf_token}, status=status.HTTP_200_OK)
+        return Response({"csrfToken": csrf_token}, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
-        username = request.data.get('username')
-        password = request.data.get('password')
+        username = request.data.get("username")
+        password = request.data.get("password")
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
-            return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+            return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
         else:
-            return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response(
+                {"message": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED
+            )
 
 
 class CreateVehicleView(CreateAPIView):
@@ -53,7 +59,9 @@ class CreateVehicleView(CreateAPIView):
 
         sales_service.create_vehicle(request_body=dict(serializer.data))
 
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
 
 
 class UpdateVehicleView(UpdateAPIView):

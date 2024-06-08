@@ -6,14 +6,14 @@ from .models import ApiKey
 
 class ApiKeyAuthentication(BaseAuthentication):
     def authenticate(self, request):
-        api_key = request.headers.get('Authorization')
+        api_key = request.headers.get("Authorization")
 
         if not api_key:
-            raise AuthenticationFailed('Missing API key')
+            raise AuthenticationFailed("Missing API key")
 
         try:
             user = ApiKey.objects.get(key=api_key).user
         except ApiKey.DoesNotExist:
-            raise AuthenticationFailed('Invalid API key')
+            raise AuthenticationFailed("Invalid API key")
 
         return (user, None)

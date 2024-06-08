@@ -7,26 +7,37 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Vehicle',
+            name="Vehicle",
             fields=[
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('id', models.CharField(editable=False, max_length=36, primary_key=True, serialize=False)),
-                ('status', models.CharField(choices=[('available', 'available'), ('sold', 'sold')], default='available', max_length=9)),
-                ('make', models.CharField(max_length=36)),
-                ('model', models.CharField(max_length=36)),
-                ('color', models.CharField(max_length=36)),
-                ('year', models.IntegerField()),
-                ('kilometerage', models.IntegerField()),
-                ('price_cents', models.IntegerField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.CharField(
+                        editable=False, max_length=36, primary_key=True, serialize=False
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[("available", "available"), ("sold", "sold")],
+                        default="available",
+                        max_length=9,
+                    ),
+                ),
+                ("make", models.CharField(max_length=36)),
+                ("model", models.CharField(max_length=36)),
+                ("color", models.CharField(max_length=36)),
+                ("year", models.IntegerField()),
+                ("kilometerage", models.IntegerField()),
+                ("price_cents", models.IntegerField()),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]
