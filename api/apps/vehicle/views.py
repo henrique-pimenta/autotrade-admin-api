@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 from api.apps.apikey_auth.authentication import ApiKeyAuthentication
 from api.apps.vehicle.models import Vehicle
 from api.apps.vehicle.serializers import CreateVehicleSerializer, UpdateVehicleSerializer, UpdateVehicleStatusSerializer
+from api.gateways import sales_service
 
 
 class LoginView(APIView):
@@ -38,7 +39,6 @@ class CreateVehicleView(CreateAPIView):
 
     def post(self, request, *args, **kwargs):
         data = {
-            "status": request.data.get("status"),
             "make": request.data.get("make"),
             "model": request.data.get("model"),
             "color": request.data.get("color"),
@@ -48,10 +48,10 @@ class CreateVehicleView(CreateAPIView):
         }
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(id=str(uuid.uuid4()))
+        serializer.save(id=str(uuid.uuid4()), status="available")
         headers = self.get_success_headers(serializer.data)
 
-
+        sales_service.create_vehicle(request_body=dict(serializer.data))
 
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
@@ -60,6 +60,11 @@ class UpdateVehicleView(UpdateAPIView):
     queryset = Vehicle.objects.all()
     serializer_class = UpdateVehicleSerializer
     lookup_field = "id"
+
+    def patch(self, request, *args, **kwargs):
+        response = super().patch(request, *args, **kwargs)
+        sales_service.update_vehicle(request_body=dict(response.data))
+        return response
 
 
 class UpdateVehicleStatusView(UpdateAPIView):
