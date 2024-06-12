@@ -74,6 +74,9 @@ class UpdateVehicleView(UpdateAPIView):
         sales_service.update_vehicle(request_body=dict(response.data))
         return response
 
+    def put(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
 
 class UpdateVehicleStatusView(UpdateAPIView):
     authentication_classes = [ApiKeyAuthentication]
