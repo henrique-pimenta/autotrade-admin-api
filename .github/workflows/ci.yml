@@ -35,5 +35,5 @@ jobs:
       - run: sudo apt-get update
       - run: sudo apt-get --no-install-recommends --no-upgrade -y install python3-pip
       - run: pip install -r requirements.txt
-      - run: python -m pytest --cov=api
+      - run: python -m pytest --cov=api --exitfirst
       - run: coverage report --fail-under=80
