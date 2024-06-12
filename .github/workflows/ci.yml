@@ -10,6 +10,20 @@ on:
       - develop
       - main
 
+env:
+  ALLOWED_HOSTS: ${{secrets.ALLOWED_HOSTS}}
+  DJANGO_SECRET_KEY: ${{secrets.DJANGO_SECRET_KEY}}
+  POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+  POSTGRES_HOST: ${{secrets.POSTGRES_HOST}}
+  SALES_SERVICE_API_KEY: ${{secrets.SALES_SERVICE_API_KEY}}
+  SALES_SERVICE_BASE_URL: ${{secrets.SALES_SERVICE_BASE_URL}}
+  ADMIN_USER_EMAIL: ${{secrets.ADMIN_USER_EMAIL}}
+  ADMIN_USER_PASSWORD: ${{secrets.ADMIN_USER_PASSWORD}}
+  DEBUG: "False"
+  POSTGRES_DB: "autotrade-admin-api-db"
+  POSTGRES_USER: "postgres"
+  ADMIN_USER_NAME: "admin"
+
 jobs:
   check-application:
     runs-on: ubuntu-latest
