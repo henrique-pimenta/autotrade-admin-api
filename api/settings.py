@@ -8,13 +8,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("DJANGO_SECRET_KEY")
 DEBUG = config("DEBUG", cast=bool)
 ALLOWED_HOSTS = []
-# CSRF_COOKIE_SECURED = False
-# CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_HTTPONLY = (
-    False  # Default is False, should not be True for CSRF to work with client-side code
-)
-CSRF_COOKIE_SAMESITE = "Lax"  # Default is 'Lax', adjust according to your needs
-
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -62,7 +55,7 @@ DATABASES = {
         "NAME": config("POSTGRES_DB"),
         "USER": config("POSTGRES_USER"),
         "PASSWORD": config("POSTGRES_PASSWORD"),
-        "HOST": "localhost",
+        "HOST": config("POSTGRES_HOST"),
         "PORT": "5432",
     }
 }
