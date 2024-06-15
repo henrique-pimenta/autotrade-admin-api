@@ -61,7 +61,7 @@ jobs:
 
       - name: Fix kube system to run on fargate
         continue-on-error: true
-        run: kubectl patch deployment coredns -n kube-system --type json -p='[{"op":"remove", "path":"/spec/template/metadata/annotations/eks.amazonaws.com~1compute-type"}]'
+        run: kubectl patch deployment coredns -n kube-system --type json -p='[{"op":"remove", "path":"/spec/template/metadata/annotations/eks.amazonaws.com/component"}]'
       - name: Restart coredns
         continue-on-error: true
         run: kubectl rollout restart -n kube-system deployment coredns
