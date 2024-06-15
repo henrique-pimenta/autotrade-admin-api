@@ -19,18 +19,7 @@ RUN pip3 install --no-cache-dir --requirement ./requirements.txt
 
 COPY . .
 
-ARG POSTGRES_DB
-ENV POSTGRES_DB=$POSTGRES_DB
-ARG POSTGRES_PASSWORD
-ENV POSTGRES_PASSWORD=$POSTGRES_PASSWORD
-ARG POSTGRES_USER
-ENV POSTGRES_USER=$POSTGRES_USER
-ARG POSTGRES_HOST
-ENV POSTGRES_HOST=$POSTGRES_HOST
-ARG AWS_KEY_ID
-ENV AWS_KEY_ID=$AWS_KEY_ID
-ARG AWS_KEY_SECRET
-ENV AWS_KEY_SECRET=$AWS_KEY_SECRET
-
-# CMD python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000
-CMD python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 api.wsgi:application
+CMD python3 manage.py createadminuser \
+    && python3 manage.py migrate \
+    && python3 manage.py runserver 0.0.0.0:8000
+    # && gunicorn --bind 0.0.0.0:8000 api.wsgi:application
