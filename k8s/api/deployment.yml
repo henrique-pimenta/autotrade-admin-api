@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ECR_IMAGE
+          image: 741786965244.dkr.ecr.us-east-1.amazonaws.com/autotrade:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8000
