@@ -32,4 +32,5 @@ ENV AWS_KEY_ID=$AWS_KEY_ID
 ARG AWS_KEY_SECRET
 ENV AWS_KEY_SECRET=$AWS_KEY_SECRET
 
-CMD python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000
+# CMD python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000
+CMD python3 manage.py migrate && gunicorn --bind 0.0.0.0:8000 api.wsgi:application
