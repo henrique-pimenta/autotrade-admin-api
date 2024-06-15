@@ -19,6 +19,11 @@ spec:
           ports:
             - containerPort: 8000
           env:
+            - name: ECR_IMAGE
+              valueFrom:
+                secretKeyRef:
+                  name: api-secrets
+                  key: ECR_IMAGE
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
