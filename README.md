@@ -1,4 +1,6 @@
 # autotrade-admin-api
+A backend microservice of a platform for trading vehicles. Built with Django REST Framework and PostgreSQL to be used in conjunction with https://github.com/henrique-pimenta/autotrade-sales-api
+
 ## Local testing instructions
 In order to start the application, follow these steps in the root directory of
 your local repository with an active virtual environment:
